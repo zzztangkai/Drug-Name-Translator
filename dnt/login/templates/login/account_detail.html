@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block title %}Account Details{% endblock %}
+{% load staticfiles %}
+{% block resources %}
+    <!-- This style sheet required for overall look and feel of the page. Don't change the order -->
+    <link href="{% static 'searchapp/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+
+    <link rel="stylesheet" href="{% static 'css/carousel.css' %}">
+
+    <link rel="stylesheet" href="{% static 'css/accountInfo.css' %}">
+    <!-- JQUERY -->
+    <script src="{% static 'js/jquery-3.1.1.min.js' %}"></script>
+{% endblock %}
+
+
+{% block content %}
+
+    <div class="container marketing">
+
+    <!-- Three columns of text -->
+    <div class="row">
+      <div class="col-lg-4">
+        <img class="img-circle" src="{% static 'css/img/person_icon_circle.png' %}" alt="Generic placeholder image" style="background-color:white;" height="100" width="100">
+        <h2>Account Details</h2>
+        <form class='form-account' action="/account_details/" method="post">
+            {% if request.session.is_login %}
+                <ul class="list-group" style="text-align: left;">
+                    <li class="list-group-item"> <b>Username:</b> &nbsp;&nbsp;&nbsp;&nbsp;{{ request.session.user_name }}</li>
+                  <li class="list-group-item"><b>Email Address:</b> {{ request.session.user_email }}</li>
+                  <li class="list-group-item"><b>Phone Number:</b> &nbsp;&nbsp;&nbsp;&nbsp;{{ request.session.user_phone }}</li>
+
+                </ul>
+            {% else %}
+                    <h1>Please Login first.</h1>
+            {% endif %}
+          </form>
+      </div><!-- /.col-lg-4 -->
+      <div class="col-lg-4">
+        <img class="img-circle" src="{% static 'css/img/update_icon.png' %}" alt="Generic placeholder image" style="background-color:white;" height="100" width="100">
+        <h2>Update Account Details</h2>
+        <p><a class="btn btn-default" href="/update_details/" role="button">Update Details &raquo;</a></p>
+      </div><!-- /.col-lg-4 -->
+      <div class="col-lg-4">
+        <img class="img-circle" src="{% static 'css/img/lock_icon.png' %}" alt="Generic placeholder image" style="background-color:white;" height="100" width="100">
+        <h2>Update Password</h2>
+        <p><a class="btn btn-default" href="/update_pass/" role="button">Update Password &raquo;</a></p>
+      </div><!-- /.col-lg-4 -->
+    </div><!-- /.row -->
+
+</div><!-- /.container -->
+{% endblock %}
+
+{% block js %}
+<script src="{% static 'searchapp/bootstrap/js/bootstrap.min.js' %}"></script>
+{% endblock %}

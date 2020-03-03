@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% block title %}Update Account Details{% endblock %}
+{% load static %}
+{% block resources %}
+    <!-- This style sheet required for overall look and feel of the page. Don't change the order -->
+    <link href="{% static 'searchapp/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+
+    <link rel="stylesheet" href="{% static 'css/accountInfo.css' %}">
+
+    <!-- JQUERY -->
+    <script src="{% static 'js/jquery-3.1.1.min.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+        <form class='form-account' action="/update_details/" method="post" id="bgForm">
+          {% csrf_token %}
+            <div class="row">
+                    <div class="col-md-1"></div>
+
+                  <div class="col-md-10 text-center">
+                        <div id="fsh_logo"></div>
+                        <div id="curtin_logo"></div>
+                  </div>
+            </div>
+
+            <div class="row">
+                        <div class="col-md-1"></div>
+
+                      <div class="col-md-10 text-center">
+                          <h2> Update Account Details</h2>
+                      </div>
+            </div>
+
+                {% if request.session.is_login %}
+                            {% if message %}
+                            <div class="alert alert-warning">{{ message }}</div>
+                          {% endif %}
+
+                        <div class="row">
+                              <div class="col-md-1"></div>
+                              <div class="col-md-10 text-center">
+
+                                <div class="from-group" style="margin:20px;">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                        {{ updateInfo_form.username }}
+                                    </div>
+                                </div>
+
+                                <div class="from-group" style="margin:20px;">
+                                    <div class="input-group">
+                                       <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+                                        {{ updateInfo_form.email }}
+                                    </div>
+                                </div>
+
+                                <div class="from-group" style="margin:20px;">
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="glyphicon glyphicon-phone"></i></span>
+                                            {{ updateInfo_form.phone }}
+                                        </div>
+                                </div>
+
+                                <p>Note: only fill in the fields you wish to update. You are required to re-login after updating details.</p>
+                                <center><button type="submit" class="btn btn-primary btn-lg">Update Details</button></center>
+                            </div>
+
+                        </div>
+
+                {% else %}
+                   <h1>Please Login first.</h1>
+                {% endif %}
+        </form>
+
+    <div class="row">
+        <div class="col-md-7"></div>
+        <p class="pull-right"><a href="/account_details/">Back to Account Details</a></p>
+    </div>
+    {% endblock %}
+
+    {% block js %}
+    <script src="{% static 'searchapp/bootstrap/js/bootstrap.min.js' %}"></script>
+    {% endblock %}

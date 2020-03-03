@@ -1,0 +1,69 @@
+body {
+  background: url(img/background.jpg) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  background-image: url("img/background.jpg");
+  font-family: "Lato", sans-serif;
+}
+/*STYLE FOR CROP WINDOW */
+#cropDivHeader {
+  padding: 10px;
+  cursor: move;
+  background-color: #3679ab;
+  color: #fff;
+  border: 1px solid #d3d3d3;
+  text-align: center;
+}
+
+/*STYLE FOR OVERALL PAGE HEADER AND BODY */
+.page-header {
+        margin-top: 0;
+}
+
+body {
+  font: 100% / 1.5 Arial;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+/*STYLE FOR VERTICAL SCROLL LIST (RESULTS + HISTORY) */
+.parallax {
+    overflow-y: auto;
+    height: 60vh;
+    font-size: 200%;
+}
+
+.card-text {
+  font-size: 16px;
+}
+
+.card-link {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+/*STYLE FOR DISCLAIMER SECTION */
+.disclaimer{
+    padding-top: 5px;
+}
+
+/*STYLE FOR HISTORY LIST */
+.history a{
+    font-size: 14px;
+    font-weight: bold;
+}
+
+/*STYLE FOR NAVIGATION BAR*/
+.navbar li {
+   padding: 0px 20px 0px 0px;
+}
+
+.navbar {
+   font-size: 15px;
+   padding: 0px 10px 0px 10px !important;
+}

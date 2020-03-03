@@ -1,0 +1,206 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% load static %}
+
+{% block resources %}
+
+    <!-- This style sheet required for overall look and feel and search bar of the page. Don't change the order -->
+    <link href="{% static 'searchapp/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+
+    <!-- JQUERY -->
+    <script src="{% static 'js/jquery-3.1.1.min.js' %}"></script>
+
+  <!-- JQUERY UI REQUIRED FOR CROP WINDOW DRAGGING CODE -->
+    <link href="{% static 'css/jquery-ui.min.css' %}" rel="stylesheet">
+    <script src="{% static 'js/jquery-ui.min.js' %}"></script>
+
+    <link href="{% static 'css/mycss.css' %}" rel="stylesheet">
+
+{% endblock %}
+
+{% block content %}
+
+    <h1 class="page-header"></h1>
+
+    <div class="container">
+        <div class="row"> <!-- row for crop image starts here -->
+            <!-- FORM TO UPLOAD THE IMAGES -->
+          <form method="post" enctype="multipart/form-data" id="formUpload" action="/cropimage/">
+            {% csrf_token %}
+              {% for hidden_field in form2.hidden_fields %}
+                {{ hidden_field }}
+              {% endfor %}
+              {% for field in form2.visible_fields %}
+                {% render_field field style="display: none;" %}
+              {% endfor %}
+          </form>
+
+            <!-- WINDOW TO CROP THE IMAGE -->
+              <div class="modal fade" id="cropDiv">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header" id="cropDivHeader">
+                        <h4 class="modal-title">Crop the photo</h4>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+
+                    </div>
+                    <div class="modal-body">
+                      <img src="" id="image" style="max-width: 75%;">
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                      <button type="button" class="btn btn-primary js-crop-and-upload">Crop and translate</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+        </div> <!-- row for crop image ends here -->
+
+        <div class="row"> <!-- row for image thumbnail starts here -->
+            {% if img_path %}
+            <div class="col-lg-6 col-xl-9">
+                <img src="{{img_path}}" alt="uploaded image thumbnail" class="img-thumbnail" max-width="100%" style="margin: 5px;max-height:300px" >
+            </div>
+            {% endif %}
+        </div> <!-- row for image thumbnail ends here -->
+        <div class="row"> <!-- row for translation starts here -->
+            <div class="col-lg-6 col-xl-9" style="margin: 5px;">
+                <h4 class="text-info" style="display:inline;"><b>Translations:</b></h4>
+                <input type="text" value="{{ filename }}" style="display:none;">
+                    {% for name in translation %} <!-- loop through each translation word -->
+                        <h4 style="display:inline;"><a href="{% url 'link_display_view' filename name %}"> &nbsp;&nbsp;{{ name }} </a></h4>
+                    {% endfor %} <!-- translation loop ends here -->
+            </div>
+        </div> <!-- row for translation ends here -->
+        <div class="row"> <!-- row for search box, camera button and search button starts here -->
+            <div class="col-lg-6 col-xl-9">
+
+                <form method="post" enctype="multipart/form-data" id="searchform" action="/search">
+                    {% csrf_token %}
+                    <div class="input-group">
+
+                        <div class="input-group-append">
+                            {{ form.post }}
+                            <button class="btn btn-primary" type="submit" id="btnsearch" style="margin-right: 5px;"><i class="fa fa-search"></i></button>
+                            <button class="btn btn-primary" type="button" id="btnfile" style="margin-right: 5px;"><i class="fa fa-camera"></i></button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div> <!-- row for search box, camera button and search button ends here -->
+    </div>
+    <div class="container">
+        <div class="row"> <!-- row for search results label starts here -->
+            <div class="col">
+                <div>
+                    <h4 class="text-info"><b>Search Results Found:</b> &nbsp;&nbsp;&nbsp;&nbsp;{{results_found}}
+                        {% if result %}
+                            <a href="{% url 'did_you_mean_view' result %}"> &nbsp;&nbsp;{{ result }} </a></h4>
+                        {% endif %}
+                </div>
+            </div>
+        </div> <!-- row for search results label ends here -->
+
+        <div class="row"> <!-- row for search results starts  and history starts here -->
+            <div class="col-md-6 col-xl-9">
+                <div class="parallax"> <!-- search results parallax (scroll pan) starts -->
+                    <ul class="list-group">
+                        {% for drug in list_of_drug_data %} <!-- loop through each drug in list of drug data -->
+                            <li class="list-group-item">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h3 class="card-title well well-sm" style="background-color: LightCyan"><b class="text-info">Generic Name: </b>{{ drug.generic_name }}</h3>
+                                            {% for brand in drug.brands %} <!-- loop through each brand in a drug -->
+                                                <table class="table table-bordered">
+                                                    <tr>
+                                                        <td style="width: 7em">
+                                                            <h4 class="card-title text-success"><b>Brand Name:</b></h4>
+                                                        </td>
+                                                        <td>
+                                                            <h4 class="card-title text-muted"><b>{{ brand.brand_name }}</b></h4>
+                                                        </td>
+                                                    </tr> <!-- Brand name row ends -->
+
+                                                    <tr>
+                                                        <td>
+                                                            <p class="card-text text-info"><i>Description:</i></p>
+                                                        </td>
+                                                        <td>
+                                                            <p class="card-text text-muted">{{ brand.description }}</p>
+                                                        </td>
+                                                    </tr> <!-- Description row ends -->
+
+                                                    <tr>
+                                                        <td>
+                                                            <p class="card-text text-danger"><i>Reaction:</i></p>
+                                                        </td>
+                                                        <td>
+                                                            <p class="card-text text-muted">{{ brand.reaction }}</p>
+                                                        </td>
+                                                    </tr> <!-- Reaction row ends -->
+
+                                                    <tr>
+                                                        <td>
+                                                            <p class="card-text text-info"><i>Price:</i></p>
+                                                        </td>
+                                                        <td>
+                                                            <p class="card-text text-muted">{{ brand.price }}</p>
+                                                        </td>
+                                                    </tr> <!-- Price row ends -->
+
+                                                    <tr>
+                                                        <td>
+                                                            <p class="card-text text-info"><i>Manufacturer:</i></p>
+                                                        </td>
+                                                        <td>
+                                                            <p class="card-text text-muted">{{ brand.manufacturer }}</p>
+                                                        </td>
+                                                    </tr> <!-- Manufacturer row ends -->
+
+                                                </table>
+                                            {% endfor %} <!-- brands loop ends here -->
+                                        <a class="card-link" target=”_blank” href="{% url 'more_info_view' drug.generic_name %}"><u>More information</u></a>
+                                    </div>
+                                </div>
+                            </li>
+                        {% endfor %} <!-- drugs loop ends here -->
+                    </ul>
+                </div> <!-- search results parallax (scroll pan) ends -->
+            </div>
+            <div class="col">
+                <div style="margin-bottom: 10%;">
+                    <button onclick="location.href='{% url 'clear_history_view' %}'" class="btn btn-primary" type="button" id="btnhistory"><i class="fa fa-eraser">&nbsp;&nbsp;&nbsp;&nbsp;Clear History</i></button>
+                </div>
+                <div class="parallax"> <!-- history parallax (scroll pan) starts -->
+                    <ul class="list-group">
+                        {% for search in list_of_searches %}
+                            <li class="list-group-item history"><a href="{% url 'history_view' search.search_term %}">{{ search.search_term }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div> <!-- history parallax ends -->
+            </div>
+        </div> <!-- row for search results starts  and history ends here -->
+
+        <div class="row disclaimer">
+            <div class="col">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="mb-0">Disclaimer</h4>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">Any connections/hits that the program identifies will be used at the doctor’s discretion; the software developers hold no responsibility for decisions made by professionals based on what the program highlights.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block js %}
+
+    <script src="{% static 'searchapp/bootstrap/js/bootstrap.min.js' %}"></script>
+{% endblock %}

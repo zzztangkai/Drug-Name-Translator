@@ -1,0 +1,84 @@
+body {
+    background: url(img/background.jpg) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  font-family: "Lato", sans-serif;
+}
+
+#bgForm {
+    overflow: none;
+    display: relative;
+    top: 0;
+    width: 400px;
+    padding: 20px;
+    background-color: white;
+    position:  center center;
+    margin: auto;
+    }
+
+label {
+  float: left;
+  font-size: 17px;
+  width: 200px;
+}
+
+.formFields {
+  display: block;
+  overflow: hidden;
+  padding: 0 4px 0 6px;
+  margin: 0 0 40px 0;
+  width: 300px;
+}
+
+.navbar {
+   font-size: 15px;
+   font-family: Lato;
+   padding: 0px 10px 0px 10px !important;
+}
+
+.navbar h5 {
+   padding: 0px 0px 0px 20px;
+}
+
+.navbar li {
+   padding: 0px 20px 0px 0px;
+}
+
+h2 {
+    font-family: Lato;
+    font-weight: bold;
+    color: black;
+    padding: 10px;
+}
+
+h3 {
+  font-family: Lato;
+  font-weight: bold;
+  color: rgb(7, 7, 7);
+  font-size: 20px;
+}
+
+#fsh_logo {
+    background-image: url('img/fsh_logo.png');
+    background-repeat: no-repeat;
+    width: 80px;
+    height: 80px;
+
+    background-size: contain;
+  }
+
+  #curtin_logo {
+    background-image: url('img/curtin_logo.png');
+    background-repeat: no-repeat;
+    width: 80px;
+    height: 80px;
+    right:0px;
+    bottom:0px;
+    background-size: contain;
+  }
+
+
+  #fsh_logo {display:inline-block;margin-right:10px;}
+  #curtin_logo {display:inline-block;}

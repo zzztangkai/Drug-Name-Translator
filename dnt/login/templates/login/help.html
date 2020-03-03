@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% block title %}Help{% endblock %}
+{% load static %}
+{% block resources %}
+    <!-- This style sheet required for overall look and feel of the page. Don't change the order -->
+    <link href="{% static 'searchapp/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+   <link rel="stylesheet" href="{% static 'css/help.css' %}">
+	<!-- Custom styles for this template -->
+    <link rel="stylesheet" href="{% static 'css/carousel.css' %}">
+    <!-- JQUERY -->
+    <script src="{% static 'js/jquery-3.1.1.min.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+
+    <div class="container marketing">
+
+      <!-- Three columns of text -->
+      <div class="row">
+        <div class="col-lg-4">
+          <img class="img-circle" src="{% static 'css/img/question_mark.png' %}" alt="Generic placeholder image" style="background-color:white;" height="100" width="100">
+          <h2>FAQs & Answers</h2>
+          <p><a class="btn btn-default" href="#faqs" role="button">Go to FAQs &raquo;</a></p>
+        </div><!-- /.col-lg-4 -->
+        <div class="col-lg-4">
+          <img class="img-circle" src="{% static 'css/img/play_button.svg' %}" alt="Generic placeholder image" style="background-color:white;" height="100" width="100">
+          <h2>Tutorials</h2>
+          <p><a class="btn btn-default" href="#tutorials" role="button">Go to Tutorials &raquo;</a></p>
+        </div><!-- /.col-lg-4 -->
+        <div class="col-lg-4">
+          <img class="img-circle" src="{% static 'css/img/book.png' %}" alt="Generic placeholder image" style="background-color:white;" height="100" width="100">
+          <h2>User Manual</h2>
+          <p><a class="btn btn-default" target=”_blank” href="{% static 'user_manual/User_Guide.pdf' %}" role="button">Go to User Manual &raquo;</a></p>
+        </div><!-- /.col-lg-4 -->
+      </div><!-- /.row -->
+
+
+      <!-- START THE FEATURETTES -->
+
+      <hr class="featurette-divider">
+
+      <div class="row featurette">
+	      <!--<div class="col-md-7">-->
+	 <div class="faqcontainer">
+          <h2 class="featurette-heading" id="faqs">FAQs & Answers</h2>
+          <b>What database are you using to get the drug information?</b>
+	  <p><a href="http://www.pbs.gov.au/pbs/home" target="_blank">PBS<a> (Pharmaceutical Benefits Scheme) is the database we are currently using to retrieve the information about each drug, however we have the ability to modify the app so that it uses a different drug name database if needed.</p>
+	  <b>What OCR engine are you using to extract the drug names from images?</b>
+	  <p>We are currently using <a href="https://github.com/tesseract-ocr" target="_blank">Tesseract</a> but have the ability to change to other OCR engines if needed.</p>
+	  <b>Where can I contact the developers to provide feedback or ask questions?</b>
+	  <p>The developers can be contacted via <a href="mailto:curtincapstone@gmail.com">curtincapstone@gmail.com</a>. This email address can also be accessed on the <a href="/contact_us/">Contact Us</a> page.</p>
+	  <b>I am uploading an image file to search with but nothing appears when I click the image open button in the file chooser, how do I fix this?</b>
+	  <p>Try refreshing the browser by clicking the refresh button in top left corner of the browser or pressing f5.</p>
+	  <b>When I take a picture with my mobile camera, it does not display in the correct orientation. How do I fix this?</b>
+	  <p>Try taking the picture again, this time change the orientation of the camera from portrait to landscape.</p>
+	  <p class="pull-right"><a href="#">Back to top</a></p>
+	<div class="col-md-5">
+	  <!--<img class="featurette-image img-responsive center-block" data-src="holder.js/500x500/auto" alt="Generic placeholder image" style="margin-top:150px;">
+	  <p class="pull-right"><a href="#">Back to top</a></p>-->
+	</div>
+      </div>
+
+      <hr class="featurette-divider">
+
+      <div class="row featurette">
+	<div class="faqcontainer">
+		<!--<div class="col-md-7">-->
+          <h2 class="featurette-heading" id="tutorials">Tutorials</h2>
+          <p class="lead">Signing up and logging in tutorial:</p>
+          <iframe width="716" height="403" src="https://www.youtube.com/embed/dG9vXMrjJN8" allowfullscreen></iframe>
+          <p class="lead">Searching with text tutorial:</p>
+	  <iframe width="716" height="403" src="https://www.youtube.com/embed/EEVEP7wB1qk" allowfullscreen></iframe>
+	  <p class="lead">Searching with image tutorial:</p>
+          <iframe width="716" height="403" src="https://www.youtube.com/embed/oZmuGvdyJSs" allowfullscreen></iframe></div>
+            <p class="pull-right"><a href="#">Back to top</a></p>
+	</div>
+        <!--<div class="col-md-5">
+            <p class="pull-right"><a href="#">Back to top</a></p>
+	</div>-->
+      </div>
+
+      <!-- /END THE FEATURETTES -->
+
+    </div><!-- /.container -->
+
+{% endblock %}
+
+{% block js %}
+    <script src="{% static 'searchapp/bootstrap/js/bootstrap.min.js' %}"></script>
+{% endblock %}

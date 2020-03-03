@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block resources %}
+    <!-- This style sheet required for overall look and feel of the page. Don't change the order -->
+    <link href="{% static 'searchapp/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+
+    <!-- JQUERY -->
+    <script src="{% static 'js/jquery-3.1.1.min.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'css/demo.css' %}">
+
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="{% static 'js/show_password.js' %}"></script>
+{% endblock %}
+ 
+ {% block title %}Reset Password{% endblock %}
+
+{% block content %}
+
+<form class='form-resetpwd' action="/forget/" method="post">
+  {% if message %}
+    <div class="alert alert-warning">{{ message }}</div>
+  {% endif %}
+  {% csrf_token %}
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div id="fsh_logo"></div>
+            <div id="curtin_logo"></div>
+        </div>
+              <div class="row">
+                <div class="col-md-1"></div>                
+                  <div class="col-md-10 text-center">
+                    <h2 class="text-center">Drug Name Translation Tool</h2>
+                    <h3 class="text-center">Reset Password</h3>
+
+                  </div>
+                  <div class="col-md-1"></div>
+              </div>
+              <br/>
+                  
+              <div class="row">
+                  <div class="col-md-1"></div>
+                  <div class="col-md-10 text-center">
+                    <div class="form-group">
+                      <div class="input-group">
+                        <span class="input-group-addon" style="line-height:1.42857143;">
+                          <i class="glyphicon glyphicon-envelope"></i>
+                        </span>
+                          {{ resetpwd_form.email }}
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <div class="input-group">
+                        <span class="input-group-addon" style="line-height:1.42857143;">
+                          <i class="glyphicon glyphicon-lock"></i>
+                        </span>
+                          {{ resetpwd_form.password1 }}
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <div class="input-group">
+                        <span class="input-group-addon" style="line-height:1.42857143;">
+                          <i class="glyphicon glyphicon-lock"></i>
+                        </span>
+                          {{ resetpwd_form.password2 }}
+                      </div>
+                    </div>
+                        <p><input class="w3-check" type="checkbox" onclick="show_pass()">Show Password</p>
+                        <center><button type="submit" class="btn btn-primary btn-block pull-center">Submit</button></center>
+                  </div>
+               </div>
+    </div>
+
+</form>
+{% endblock %}
+
+{% block js %}
+<script src="{% static 'searchapp/bootstrap/js/bootstrap.min.js' %}"></script>
+{% endblock %}
